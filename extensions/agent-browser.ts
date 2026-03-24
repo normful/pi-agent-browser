@@ -11,8 +11,12 @@ import {
 import { Text } from "@mariozechner/pi-tui";
 import { Type } from "@sinclair/typebox";
 
-const TOOL_DESCRIPTION =
-  "Browser: open <url> [--session-name <name>]; snapshot [-i]; find <role|text|label> <val> [click]; click|fill|select <@ref> <val>; type <@ref> <text>; dblclick|hover|scrollintoview <@ref>; scroll <up,down> [px]; press <key>; get text|url|title|value|box [@ref]; is visible|enabled|checked <@ref>; wait <@ref|ms|--load>; screenshot [--annotate]; eval <js>; state save|load <path>; close. --session-name <name> autosaves cookies & localStorage. Login once, then reuse same --session-name to skip login";
+const TOOL_DESCRIPTION = `Browser: open <url>; snapshot [-i] # get refs (@e1, @e2...)
+click|fill|select <@ref> <val>; type <@ref> <text>; dblclick|hover|scrollintoview <@ref>
+find <role|text|label> <val>; scroll <up,down> [px]; press <key:Enter|Escape|...>
+get text|url|title|value|box [@ref]; is visible|enabled|checked <@ref>
+wait <ms>|--load <idle|networkidle>; screenshot [--annotate] [path]; console; errors
+eval <js>; state save|load <path>; close; --session-name <name> # persist login`;
 
 function writeTempFile(content: string, prefix: string): string {
   const dir = mkdtempSync(join(tmpdir(), `pi-browser-${prefix}-`));
