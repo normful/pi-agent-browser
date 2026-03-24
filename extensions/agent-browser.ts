@@ -11,22 +11,8 @@ import {
 import { Text } from "@mariozechner/pi-tui";
 import { Type } from "@sinclair/typebox";
 
-const TOOL_DESCRIPTION = `Browser automation via agent-browser CLI.
-Workflow: open URL → snapshot -i (get @refs like @e1) → interact → re-snapshot after page changes.
-Commands:
-  open <url> - Navigate to URL
-  snapshot -i - Interactive elements with @refs (re-snapshot after navigation)
-  click <@ref> - Click element
-  fill <@ref> <text> - Clear and type
-  type <@ref> <text> - Type without clearing
-  select <@ref> <value> - Select dropdown
-  press <key> - Press key (Enter, Tab, etc.)
-  scroll <dir> [px] - Scroll (up/down/left/right)
-  get text|url|title [@ref] - Get information
-  wait <@ref|ms> - Wait for element or time
-  screenshot [--full] - Take screenshot (image returned inline)
-  close - Close browser
-Any valid agent-browser command works.`;
+const TOOL_DESCRIPTION =
+  "Browser: open <url> [--session-name <name>]; snapshot [-i]; find <role|text|label> <val> [click]; click|fill|select <@ref> <val>; type <@ref> <text>; dblclick|hover|scrollintoview <@ref>; scroll <up,down> [px]; press <key>; get text|url|title|value|box [@ref]; is visible|enabled|checked <@ref>; wait <@ref|ms|--load>; screenshot [--annotate]; eval <js>; state save|load <path>; close. --session-name <name> autosaves cookies & localStorage. Login once, then reuse same --session-name to skip login";
 
 function writeTempFile(content: string, prefix: string): string {
   const dir = mkdtempSync(join(tmpdir(), `pi-browser-${prefix}-`));
@@ -79,7 +65,7 @@ export default function agentBrowserExtension(pi: ExtensionAPI) {
     label: "Browser",
     description: TOOL_DESCRIPTION,
     parameters: Type.Object({
-      command: Type.String({ description: "agent-browser command (without 'agent-browser' prefix)" }),
+      command: Type.String({ description: "" }),
     }),
 
     renderCall(args: { command: string }, theme: any) {
