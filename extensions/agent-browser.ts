@@ -1,14 +1,14 @@
 import { readFileSync, mkdtempSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, extname } from "node:path";
-import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";
+import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 import {
   truncateHead,
   DEFAULT_MAX_BYTES,
   DEFAULT_MAX_LINES,
   formatSize,
-} from "@mariozechner/pi-coding-agent";
-import { Text } from "@mariozechner/pi-tui";
+} from "@earendil-works/pi-coding-agent";
+import { Text } from "@earendil-works/pi-tui";
 import { Type } from "@sinclair/typebox";
 
 const TOOL_DESCRIPTION = `open <url>; snapshot [-i] # get refs (@e1, @e2...); click|fill|select <@ref> <val>; type <@ref> <text>; dblclick|hover|scrollintoview <@ref>; find <role|text|label> <val>; scroll <up,down> [px]; press <key:Enter|Escape|...>; get text|url|title|value|box [@ref]; is visible|enabled|checked <@ref>; wait <ms>|--load <idle|networkidle>; screenshot [--annotate] [path]; console; errors; eval <js>; state save|load <path>; close; --session-name <name> # persist login`;
